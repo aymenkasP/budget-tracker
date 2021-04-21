@@ -1,0 +1,103 @@
+:root {
+
+    --incomeColor : rgba(35, 245, 31, 0.71);;
+    --expenseColor : #FF6666;
+    --mainColor:whitesmoke;
+    --itemPadding : 10px;
+    --borderReduce :  3px;
+    --marginItem : 30px;
+
+}
+
+
+.income  {
+    background-color: var(--incomeColor);
+   
+}
+
+.expanse{
+    background-color: var(--expenseColor);
+}
+
+.total {
+    background-color: rgba(0, 0, 0, 0.781);
+    color: var(--mainColor);
+}
+
+.input__sec {
+    display: grid;
+    place-items: center;
+    margin-top: var(--marginItem);
+  
+    
+
+}
+
+.input__ar {
+    max-width: 900px;
+    background-color: green;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: var(--borderReduce);
+    background-color: var(--mainColor);
+    padding:17px var(--itemPadding);
+    width: 70%;
+    box-shadow: -1px 4px 11px rgba(0, 0, 0, 0.144);
+   
+   
+   
+}
+
+ 
+
+
+.input__ar input {
+    border: none;
+    padding:var(--itemPadding);
+    max-width: 135px;
+    
+}
+
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.selecter{
+    padding: 5px 10px;
+}
+
+
+.add__btn {
+    background-color: var(--incomeColor);
+    cursor: pointer;
+    transition: 0.5;
+    flex: 1 0 12px;
+}
+
+.add__btn:hover {
+    background-color: rgb(149, 255, 149);
+}
+
+@media only screen and (max-width: 768px) {
+    .input__ar   {
+      display: grid;
+      place-items: start;
+      
+    }
+    .input__ar input {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  }

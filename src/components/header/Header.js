@@ -1,0 +1,40 @@
+import React, { useEffect, useState } from 'react'
+import useFirestore from '../../Firestore/useFirestore'
+import './Header.css'
+export default function Header() {
+    const {items} = useFirestore()
+    const [expense ,  setExpense]= useState()
+    const [income ,  setIncome]= useState()
+
+    const Total = income - expense
+
+
+   
+    
+        useEffect(()=>{
+      const filterIncome =   items.filter(item => { return item.Type === 'income' } )
+      const filterExpense =   items.filter(item =>  item.Type === "expanse" )
+     
+    setIncome(filterIncome.map(item => item.amount).reduce((cv,pv)=>  Number(cv) + Number(pv) , 0 ))
+    setExpense(filterExpense.map(item => item.amount).reduce((cv,pv)=>  Number(cv) + Number(pv) , 0 ))
+        },[items])
+    return (
+        <div>
+            <header className="header">
+                <nav className="nav" >
+                    <div className="logo">
+                        <p>Logo</p>
+                    </div>
+                    <div className="items" >
+                        <div className="container">
+                            <p className="item income"> {income}$</p>
+                            <p className="item expanse"> {expense}$</p>
+                            <p className="item total"> {Total}$ </p>
+                        </div>
+
+                    </div>
+                </nav>
+            </header>
+        </div>
+    )
+}

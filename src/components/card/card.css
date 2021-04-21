@@ -1,0 +1,71 @@
+:root {
+
+    --incomeColor : rgba(35, 245, 31, 0.71);;
+    --expenseColor : #FF6666;
+    --mainColor:whitesmoke;
+    --itemPadding : 10px;
+    --borderReduce :  3px;
+    --marginItem : 30px;
+
+}
+
+.card {
+    
+    width: 90%;
+    margin: 20px var(--marginItem);
+    box-shadow: -1px 4px 4px rgba(0, 0, 0, 0.25);
+    
+}
+
+.card__body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0  var(--itemPadding);
+
+   
+    
+}
+
+.card__title {
+    text-transform:capitalize;
+}
+
+
+.incomeColor p {
+    background-color: var(--incomeColor);
+}
+
+.expenseColor p {
+    background-color: var(--expenseColor);
+}
+
+.card__amount p {
+    padding:   var(--itemPadding);
+    border-radius: var(--borderReduce);
+    
+    
+}
+.card__title p , .card__date p , .card__selected p  {
+    background-color: white;
+    padding: var(--itemPadding);
+    border-radius: var(--borderReduce);
+}
+
+.delete__btn {
+text-transform: capitalize;
+border: none;
+background-color: var(--expenseColor);
+padding:  var(--itemPadding);
+cursor: pointer;
+
+}
+@media only screen and (max-width: 653px) {
+  
+    .card__body {
+       display: flex;
+       flex-direction: column;
+      
+    }
+  }
+

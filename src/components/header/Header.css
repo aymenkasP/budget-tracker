@@ -1,0 +1,46 @@
+:root {
+
+    --incomeColor : rgba(35, 245, 31, 0.71);;
+    --expenseColor : #FF6666;
+    --mainColor:whitesmoke;
+    --itemPadding : 10px;
+    --borderReduce :  3px;
+    --marginItem : 30px;
+
+}
+
+.header  {
+    
+    display: grid;
+    place-items: center;
+    
+   
+  
+}
+
+.nav{
+   
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--borderReduce);
+    padding: 0 var(--itemPadding);
+    background-color: var(--mainColor);
+    margin-top: 12px;
+    width: 80%;
+    max-width: 1000px;
+    
+   
+}
+
+.items{
+    width: 200px;
+   }
+.container {
+display: flex;
+justify-content: space-between;
+width: 100%;
+}
+.item{
+    padding: 4px var(--itemPadding);
+    border-radius: var(--borderReduce);
+}
