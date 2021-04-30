@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import useFirestore from '../../Firestore/useFirestore'
 import './Header.css'
 export default function Header() {
-    const {items} = useFirestore()
+    const {items,logout} = useFirestore()
     const [expense ,  setExpense]= useState()
     const [income ,  setIncome]= useState()
 
@@ -30,6 +31,13 @@ export default function Header() {
                             <p className="item income"> {income}$</p>
                             <p className="item expanse"> {expense}$</p>
                             <p className="item total"> {Total}$ </p>
+
+                            <p 
+                                onClick={()=> logout}>
+                                <Link className="item total" to='/login'>
+                                    Logout
+                                </Link>
+                            </p>
                         </div>
 
                     </div>

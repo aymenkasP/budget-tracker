@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { auth , db } from '../../Firestore/Firestore';
+import { auth ,db } from '../../Firestore/Firestore';
 
-const initialState = { email: '', password: '' };
 
-const Login = () => {
+const initialState = { email: '', password: '', confirmPassword: '' };
+
+const Signup = () => {
   const history = useHistory();
-  const [input, setInput] = useState(initialState);
+  const [input, setInput] = useState('');
   const [error, setError] = useState('');
 
   const handleChange = ({ target }) => {
@@ -14,28 +15,37 @@ const Login = () => {
       ...input,
       [target.name]: target.value,
     });
+    
     setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (input.password !== input.confirmPassword)
+      return setError("Password don't match");
 
     try {
-      await auth.signInWithEmailAndPassword(input.email, input.password);
+     const creatUser = await auth.createUserWithEmailAndPassword(input.email, input.password);
       setInput(initialState);
-
      
+      await db.collection('users')
+      .add({
+          docId:creatUser,
+          userId : creatUser.user.uid,
+          email : input.email.toLowerCase(),
+          data : [],
+          dateCreated : Date.now()
+      })
 
       history.push('/');
     } catch (err) {
-      setInput(initialState)
       setError(err.message);
     }
   };
 
   return (
-    <div className="login">
-      <h1>Login Page</h1>
+    <div className="signup">
+      <h1>Sign Up Page</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input
@@ -53,14 +63,22 @@ const Login = () => {
           onChange={handleChange}
           name="password"
         />
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          type="confirmPassword"
+          value={input.confirmPassword}
+          autoComplete="off"
+          onChange={handleChange}
+          name="confirmPassword"
+        />
         <button type="submit">Submit</button>
         <p className="form__error">{error}</p>
       </form>
       <p>
-        Not a user? <Link to="/signup">Sign Up</Link>
+        Already a user? <Link to="/login">Log In</Link>
       </p>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

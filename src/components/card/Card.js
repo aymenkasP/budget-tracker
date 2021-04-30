@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../context/authContext'
 import useFirestore from '../../Firestore/useFirestore'
 import './card.css'
-export default function Card({date ,amount , type, title , id }) {
+export default function Card({date ,amount , type, title , id ,item }) {
     
     const {deleteItem} = useFirestore()
+    const {user} = useContext(AuthContext)
 
     return (
         <div>
@@ -23,7 +25,7 @@ export default function Card({date ,amount , type, title , id }) {
                             </div>
                             <div className="card__delete__btn">
                                 <button className="delete__btn" 
-                                onClick ={()=> deleteItem(id)}
+                                onClick ={()=> deleteItem(item ,user.uid)}
                                  >
                                     delete
                                 </button>

@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './input.css'
 import { useForm } from "react-hook-form";
 import useFirestore from '../../Firestore/useFirestore';
+import { AuthContext } from '../../context/authContext';
 
 export default function InputFld() {
     const { register, handleSubmit} = useForm();
     
-  
+       const {user} = useContext(AuthContext)
+
+       
     const {addItem} =useFirestore()
    
-   const onSubmit = data =>addItem(data) ;
+   const  onSubmit =  data =>  addItem(user.uid , data) ;
     
- 
+   console.log(onSubmit)
 
    
     return (

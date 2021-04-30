@@ -1,46 +1,63 @@
-import { useState, useEffect } from 'react';
-import { db } from './Firestore';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+import { db , FieldValue , auth} from './Firestore';
 
 
 
 export default function useFirestore() {
     const [items, setItems] = useState([]);
-  
+  const {user} = useContext(AuthContext)
 
-    useEffect(()=>{
-    const unsubscribe  = db.collection('list').orderBy('date').onSnapshot(snapshot => {
-            const fetched = snapshot.docs.map(doc => {
-              return {
-                ...doc.data(),
-                id: doc.id
-              }
-            }
-               
-            )
-           
-            setItems(fetched)
-            
+    useEffect(async()=>{
+    const  unsubscribe  =  await db.collection('users').where('userId','==' ,user.uid).get()
+    const [id]= unsubscribe.docs.map(item => item.id)
+      const data =  db.collection('users').doc(id).onSnapshot(doc => {
+      const itm = doc.data().data
+      setItems(itm)
+
+      
+
+    } ) 
+          
       
       
-          })
+        
 
          
       
      
 
-    return unsubscribe
+    return data
     },[])
 
-    const deleteItem = async (id) => {
-        await db.collection('list').doc(id).delete();
+    const deleteItem = async (Data,userId) => {
+      const res =   await db.collection('users').where('userId','==' ,userId).get()
+      const [id]= res.docs.map(item => item.id)
+
+      const add =  db.collection('users').doc(id)
+      .update({
+        data : FieldValue.firestore.FieldValue.arrayRemove(Data)
+ 
+      })
+      return add
       };
 
-    const addItem = async (item) => {
-        await db.collection('list').add({
-          ...item
-        })
-    } 
-   
+    const addItem = async (userId,Data) => {
+     
+     const res =   await db.collection('users').where('userId','==' ,userId).get()
+      const [id]= res.docs.map(item => item.id)
 
-    return {addItem , items ,deleteItem}
+      const add =  db.collection('users').doc(id)
+      .update({
+        data : FieldValue.firestore.FieldValue.arrayUnion(Data)
+ 
+      })
+      return add
+     
+    }
+
+
+    const logout = auth.signOut()
+
+    return {addItem , items ,deleteItem,logout}
 }

@@ -5,21 +5,25 @@ export const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
     const [loading, setLoading] = useState(true);
-
-    useEffect(()=> {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user)
-            setLoading(false)
-        })
-
-        return unsubscribe;
-    },[]);
-    
-    if (loading) return <p>Loading...</p>;
-
+           console.log(user)
+        useEffect(()=> {
+            const CheckUser = auth.onAuthStateChanged(user => {
+                if(user)
+                {localStorage.setItem('authUser' , JSON.stringify(user) )
+                setUser(user)
+                setLoading(false)
+            }else{
+                localStorage.removeItem('authUser')
+                }
+                
+            })
+            return () => CheckUser
+        },[])
+   
+                
     return (
-        <AuthProvider value={{user}} > {children} </AuthProvider>
-    )
+        <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+        )
 }
