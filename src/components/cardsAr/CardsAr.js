@@ -4,21 +4,19 @@ import Card from '../card/Card'
     import './CardsAr.css'
     export default function CardsAr() {
         const {items} = useFirestore()
-        
-     console.log(items)
-        return (
+       return items ? (
             <div>
                  <div className="container__card__arr">
                  <section className="card__ar">
                  {
-                    items.map(item => <Card item ={item} id={item.id} title={item.title} amount={item.amount}
-                    type ={item.Type} date={item.date}
-                    key={item.id} /> )
+                    items.map((item )=> <Card key={item.title} item ={item}  title={item.title} amount={item.amount} type ={item.Type} date={item.date} /> )
                  }
                   
                  </section>
                  </div>
             </div>
+        ): (
+            <p>""</p>
         )
     }
     

@@ -1,10 +1,14 @@
 import './App.css';
-import Login from './components/Login/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/home/Home'
-import PrivateRoute from './context/PrivateRouth'
-import Signup from './components/signup/Signup';
 
+import PrivateRoute from './context/PrivateRouth'
+
+import { lazy , Suspense } from 'react';
+
+
+const Home = lazy(()=> import('./components/home/Home'))
+const Login = lazy(()=> import('./components/Login/Login'))
+const Signup = lazy(()=> import('./components/signup/Signup'))
 
 function App() {
 
@@ -12,12 +16,14 @@ function App() {
 
     <div className="App">
       <Router>
+      <Suspense fallback={<p>loading</p>}   >
         <Switch>
-        
           <PrivateRoute exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path='/' />
         </Switch>
+        </Suspense>
       </Router>
     </div>
 

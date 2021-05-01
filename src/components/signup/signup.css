@@ -1,7 +1,7 @@
 
 
 
-.login {
+.sign__up {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +10,7 @@
    
 }
 
-.login__title {
+.sign__up__title {
     display: grid;
     place-items: center;
 
@@ -26,7 +26,7 @@
     
 }
 
-.login__email ,.login__password {
+.sign__up__email ,.sign__up__password {
     display: flex;
     flex-direction: column;
    
@@ -35,16 +35,16 @@
     
 }
 
-.login__email input , .login__password input {
+.sign__up__email input , .sign__up__password input {
     padding: 2%;
 }
 
-.login__email label ,.login__password label {
+.sign__up__email label ,.sign__up__password label {
     padding: 2%;
     font-weight: 500;
 }
 
-.login__btn {
+.sign__up__btn {
    
     margin: 5%;
     display: grid;
@@ -52,7 +52,7 @@
 
 }
 
-.login__btn button {
+.sign__up__btn button {
     border: none;
     padding: 3%;
     color: whitesmoke;
@@ -61,7 +61,7 @@
     cursor: pointer;
     font-size: 1rem;
 }
-.login__toSignup {
+.sign__up_toLogin {
     font-weight: 500;
 }
 
@@ -76,7 +76,7 @@
         height: 100%;
     }
 
-    .login {
+    .sign__up {
         display: grid;
         place-items: center;
     }

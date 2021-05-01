@@ -14,7 +14,7 @@ export default function Header() {
     
         useEffect(()=>{
       const filterIncome =   items.filter(item => { return item.Type === 'income' } )
-      const filterExpense =   items.filter(item =>  item.Type === "expanse" )
+      const filterExpense =   items?.filter(item =>  item.Type === "expanse" )
      
     setIncome(filterIncome.map(item => item.amount).reduce((cv,pv)=>  Number(cv) + Number(pv) , 0 ))
     setExpense(filterExpense.map(item => item.amount).reduce((cv,pv)=>  Number(cv) + Number(pv) , 0 ))
@@ -33,8 +33,8 @@ export default function Header() {
                             <p className="item total"> {Total}$ </p>
 
                             <p 
-                                onClick={()=> logout}>
-                                <Link className="item total" to='/login'>
+                                onClick={()=> logout() }>
+                                <Link  to='/login' className="item total">
                                     Logout
                                 </Link>
                             </p>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { auth ,db } from '../../Firestore/Firestore';
-
+import './signup.css'
 
 const initialState = { email: '', password: '', confirmPassword: '' };
 
@@ -30,7 +30,7 @@ const Signup = () => {
      
       await db.collection('users')
       .add({
-          docId:creatUser,
+         
           userId : creatUser.user.uid,
           email : input.email.toLowerCase(),
           data : [],
@@ -44,9 +44,17 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup">
+    <div className="sign__up">
+    <div className='sign__up__title' >
       <h1>Sign Up Page</h1>
-      <form onSubmit={handleSubmit}>
+
+      </div>
+
+<div className='sign__up__form' >  
+      <form onSubmit={handleSubmit} className="form">
+
+    <div className='sign__up__email'> 
+
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -55,6 +63,11 @@ const Signup = () => {
           onChange={handleChange}
           name="email"
         />
+
+      </div>
+
+
+      <div className='sign__up__password'> 
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -63,6 +76,9 @@ const Signup = () => {
           onChange={handleChange}
           name="password"
         />
+
+      
+
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
           type="confirmPassword"
@@ -71,12 +87,22 @@ const Signup = () => {
           onChange={handleChange}
           name="confirmPassword"
         />
+        </div>
+
+        <div className='sign__up__btn'>
+
         <button type="submit">Submit</button>
         <p className="form__error">{error}</p>
+        </div>
+
       </form>
-      <p>
+      
+      </div>
+
+      <p className='sign__up_toLogin' >
         Already a user? <Link to="/login">Log In</Link>
       </p>
+
     </div>
   );
 };

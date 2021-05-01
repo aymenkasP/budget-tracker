@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { auth , db } from '../../Firestore/Firestore';
-
+import { auth  } from '../../Firestore/Firestore';
+import './Login.css'
 const initialState = { email: '', password: '' };
 
 const Login = () => {
@@ -35,8 +35,17 @@ const Login = () => {
 
   return (
     <div className="login">
+
+    <div className='login__title' >
       <h1>Login Page</h1>
-      <form onSubmit={handleSubmit}>
+    </div>
+
+
+      <div className='login__form' >
+
+      <form onSubmit={handleSubmit} className='form' >
+
+        <div className='login__email' >  
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -45,6 +54,11 @@ const Login = () => {
           onChange={handleChange}
           name="email"
         />
+
+      </div>
+
+      <div className='login__password' >  
+
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -53,12 +67,24 @@ const Login = () => {
           onChange={handleChange}
           name="password"
         />
-        <button type="submit">Submit</button>
+        
+        </div>
+
+        <div className='login__btn' >  
+        <button type="submit">Loge in</button>
         <p className="form__error">{error}</p>
+      </div>
+
+
       </form>
+      </div>
+
+      <div className='login__toSignup' > 
       <p>
-        Not a user? <Link to="/signup">Sign Up</Link>
+        Not a user? <Link to="/signup"> Sign Up</Link>
       </p>
+      
+       </div>
     </div>
   );
 };

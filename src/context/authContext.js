@@ -1,25 +1,23 @@
 import React, { createContext, useState, useEffect } from 'react';
-import {auth} from '../Firestore/Firestore'
+import {FieldValue } from '../Firestore/Firestore'
 
 export const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-    const [loading, setLoading] = useState(true);
-           console.log(user)
-        useEffect(()=> {
-            const CheckUser = auth.onAuthStateChanged(user => {
-                if(user)
-                {localStorage.setItem('authUser' , JSON.stringify(user) )
-                setUser(user)
-                setLoading(false)
-            }else{
-                localStorage.removeItem('authUser')
+   
+          
+        useEffect(()=>{
+            const listener = FieldValue.auth().onAuthStateChanged((authUser)=>{
+                if(authUser){
+                        localStorage.setItem('authUser' , JSON.stringify(authUser) )
+                        setUser(authUser)
+                }else {
+                    setUser(null)
                 }
-                
             })
-            return () => CheckUser
+            return () => listener()
         },[])
    
                 

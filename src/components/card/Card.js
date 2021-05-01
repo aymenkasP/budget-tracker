@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import { AuthContext } from '../../context/authContext'
 import useFirestore from '../../Firestore/useFirestore'
 import './card.css'
-export default function Card({date ,amount , type, title , id ,item }) {
+export default function Card({date ,amount , type, title  ,item }) {
     
     const {deleteItem} = useFirestore()
     const {user} = useContext(AuthContext)
+
+   
 
     return (
         <div>
